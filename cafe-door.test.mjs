@@ -1,0 +1,20 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createCafeDoorState,advanceCafeDoor,requestCafeDoorToggle,cafeRoom,cafeRoomContains,cafeBuildingColliders,cafeAnchor,cafeShop} from './cafe-door.js';
+import {advancePosition,canOccupy} from './navigation.js';
+import {tablePositions,seatsForTable} from './layout.js';
+const finish=d=>{for(let i=0;i<40;i++)advanceCafeDoor(d,1/60);};
+const furniture=tablePositions.flatMap(([x,z])=>[{x,z,w:.94,d:.94},...seatsForTable(x,z).map(s=>{const footprint=.47*(Math.abs(Math.cos(s.yaw))+Math.abs(Math.sin(s.yaw)));return {...s,w:footprint,d:footprint};})]);
+const plants=[{x:-3.42,z:3.15,w:.475,d:.475},{x:-1.9,z:3.1,w:.7,d:.6}];
+test('cafe door cannot move into occupied swept area',()=>{const d=createCafeDoorState();assert.equal(requestCafeDoorToggle(d,{x:-3.98,z:2.1}),false);assert.equal(requestCafeDoorToggle(d,{x:-3.1,z:2.1}),true);finish(d);assert.equal(d.progress,1);assert.equal(d.portal.enabled,false);});
+test('cafe room includes its true interior and excludes the exterior/rear',()=>{assert.ok(cafeRoomContains({x:-5,z:2}));assert.ok(cafeRoomContains({x:-6.2,z:2}));assert.ok(!cafeRoomContains({x:-7.8,z:2}));assert.ok(!cafeRoomContains({x:-3,z:2}));assert.ok(cafeRoom.minX<cafeRoom.maxX);});
+test('cafe front door is walkable with terrace furniture, hollow interior, reachable painting and exit',()=>{
+ const d=createCafeDoorState(),start={x:-3.03,z:2.1},obstacles=[...cafeBuildingColliders,...furniture,...plants,d.portal,d.leaf],areas=[cafeRoom];
+ assert.ok(canOccupy(start.x,start.z,obstacles,.19,areas));
+ const blocked=advancePosition(start,Math.PI/2,1,0,2,obstacles,false,areas);assert.ok(blocked.x>cafeShop.x);
+ assert.ok(requestCafeDoorToggle(d,start));finish(d);
+ const inside=advancePosition(start,Math.PI/2,1,0,1.65,obstacles,false,areas);assert.ok(cafeRoomContains(inside));assert.ok(Math.hypot(inside.x-cafeAnchor.x,inside.z-cafeAnchor.z)<1.30,'easel prompt reachable');
+ assert.ok(canOccupy(cafeAnchor.x,cafeAnchor.z,obstacles,.19,areas));
+ const outside=advancePosition(inside,Math.PI/2,-1,0,1.65,obstacles,false,areas);assert.ok(outside.x>cafeShop.x);
+ assert.equal(canOccupy(d.leaf.x,d.leaf.z,obstacles,.19,areas),false,'opened leaf remains collidable');
+});

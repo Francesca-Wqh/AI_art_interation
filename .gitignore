@@ -1,0 +1,19 @@
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Local runtime output
+__pycache__/
+*.pyc
+renders/
+*.glb
+
+# Dependencies and local configuration
+node_modules/
+.env
+.env.*
+*.local
+
+# Logs
+*.log

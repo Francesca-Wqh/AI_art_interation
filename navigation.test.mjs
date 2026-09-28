@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {canOccupy,advancePosition} from './navigation.js';
+const near=(a,b)=>assert.ok(Math.abs(a-b)<1e-9,`${a} != ${b}`);
+test('forward follows camera, not a scripted path',()=>{const a=advancePosition({x:0,z:0},0,1,0,1,[]);near(a.z,-1.5);near(a.x,0);const b=advancePosition({x:0,z:0},Math.PI/2,1,0,1,[]);near(b.x,-1.5);near(b.z,0);});
+test('diagonal motion is normalized',()=>{const p=advancePosition({x:0,z:0},0,1,1,1,[]);near(Math.hypot(p.x,p.z),1.5);});
+test('slow inspection speed',()=>{const p=advancePosition({x:0,z:0},0,1,0,1,[],true);near(p.z,-.58);});
+test('tables and walls keep a camera-radius clearance',()=>{assert.equal(canOccupy(0,0,[{x:0,z:0,w:1,d:1}]),false);assert.equal(canOccupy(.68,0,[{x:0,z:0,w:1,d:1}]),false);assert.equal(canOccupy(.71,0,[{x:0,z:0,w:1,d:1}]),true);});
+test('substeps do not tunnel through a thin post',()=>{const c=[{x:0,z:-.8,w:.1,d:.1}];const p=advancePosition({x:0,z:0},0,1,0,2,c);assert.ok(p.z>-.57);assert.ok(canOccupy(p.x,p.z,c));});
+test('slides along wall rather than freezing',()=>{const c=[{x:-.7,z:0,w:.6,d:20}];const p=advancePosition({x:0,z:0},0,1,-1,1,c);assert.ok(p.z<-.9);assert.ok(p.x>-.22);});
+test('same distance at 30 and 60 steps',()=>{let a={x:0,z:2},b={x:0,z:2};for(let i=0;i<30;i++)a=advancePosition(a,.2,1,0,1/30,[]);for(let i=0;i<60;i++)b=advancePosition(b,.2,1,0,1/60,[]);near(a.x,b.x);near(a.z,b.z);});
+test('scene perimeter stops movement',()=>{const p=advancePosition({x:4.9,z:0},0,0,1,1,[]);assert.ok(p.x<=4.97);assert.ok(p.x>=4.9);});
