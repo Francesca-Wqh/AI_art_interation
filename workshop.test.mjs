@@ -37,7 +37,7 @@ test('keyboard controls, undo, redo and reset work for all stations', () => {
    const host=env.node('div',`host-${id}`); const ui=mountWorkshop({host,id,initial:defaultWork(id),snapshot:()=>({})}); env.flush();
    if (id==='atelier') { ui.key(' '); ui.key('ArrowRight'); ui.key(' '); } else { ui.key('ArrowRight'); }
    env.flush(); assert.equal(ui.dirty,true,id); assert.ok(ui.value);
-   const buttons=host.querySelectorAll('button'); buttons.find(b=>b.textContent==='↶ 撤销').click(); env.flush(); buttons.find(b=>b.textContent==='↷ 重做').click(); env.flush(); buttons.find(b=>b.textContent==='恢复本次初稿').click(); env.flush(); assert.equal(ui.dirty,false,id); ui.destroy();
+   const buttons=host.querySelectorAll('button'); buttons.find(b=>b.textContent==='↶ Undo').click(); env.flush(); buttons.find(b=>b.textContent==='↷ Redo').click(); env.flush(); buttons.find(b=>b.textContent==='Restore starting draft').click(); env.flush(); assert.equal(ui.dirty,false,id); ui.destroy();
   }
  } finally { env.restore(); }
 });

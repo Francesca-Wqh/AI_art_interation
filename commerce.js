@@ -1,5 +1,5 @@
-import {shops,localToWorld,worldToLocal,localRect,doorLayout,roomArea,roomContains,shopFixtures,shopWalls} from './layout.js?v=08';
-import {createDoorState,requestDoorToggle,advanceDoor,doorwayOccupied} from './doors.js?v=08';
+import {shops,localToWorld,worldToLocal,localRect,doorLayout,roomArea,roomContains,shopFixtures,shopWalls} from './layout.js?v=08-en';
+import {createDoorState,requestDoorToggle,advanceDoor,doorwayOccupied} from './doors.js?v=08-en';
 
 // Generic imagined businesses. No claim of verified 1888 addresses or shop owners.
 export function addCommerce({T,scene,group,mesh,box,cyl,ball,rod,ring,mat,M,labelTexture,colliders,warmLights,onAnchor}) {
@@ -175,19 +175,19 @@ export function addCommerce({T,scene,group,mesh,box,cyl,ball,rod,ring,mat,M,labe
     nearestAction=null;let best=Infinity;
     for(const door of doors){
       const p=worldToLocal(door.shop,position.x,position.z),distance=Math.hypot(p.u-door.layout.center,p.v);
-      if(distance<2.1&&Math.abs(p.u-door.layout.center)<.95&&Math.abs(p.v)<1.95&&distance<best){best=distance;nearestAction={kind:'door',door,label:`${door.target?'关门':'开门'} · ${door.shop.label}`};}
+      if(distance<2.1&&Math.abs(p.u-door.layout.center)<.95&&Math.abs(p.v)<1.95&&distance<best){best=distance;nearestAction={kind:'door',door,label:`${door.target?'Close door':'Open door'} · ${door.shop.label}`};}
     }
     const anchor=anchors.find(a=>a.shopId===id&&Math.hypot(a.x-position.x,a.z-position.z)<1.1);
-    if(anchor)nearestAction={kind:'anchor',anchor,label:`动手创作 · ${anchor.shop.label}`};
+    if(anchor)nearestAction={kind:'anchor',anchor,label:`Create · ${anchor.shop.label}`};
     return {currentShop:id,currentLabel:room?.shop.label??null,action:nearestAction};
   }
   function interact(position){
-    if(!nearestAction)return '走近店门后按 E 开门，再靠近店内柜台动手创作。';
+    if(!nearestAction)return 'Approach a shop door and press E to open it, then move to the counter to create.';
     if(nearestAction.kind==='door'){
       const d=nearestAction.door;
-      if(!requestDoorToggle(d,position))return '请离门扇远一点，留出开关门空间。';
+      if(!requestDoorToggle(d,position))return 'Step away from the door so it can open or close.';
       window.dispatchEvent(new CustomEvent('cafe:door-change',{detail:{shopId:d.shop.id,open:!!d.target}}));
-      return `${d.shop.label} · 正在${d.target?'开门':'关门'}`;
+      return `${d.shop.label} · ${d.target?'Opening':'Closing'}`;
     }
     const a=nearestAction.anchor;
     window.dispatchEvent(new CustomEvent('cafe:interact',{detail:{shopId:a.shopId,anchorId:a.id}}));

@@ -1,7 +1,7 @@
-import {workColors} from './workshop-model.js?v=08';
-import {shops,localToWorld,worldToLocal} from './layout.js?v=08';
-import {STUDIES} from './interactions.js?v=08';
-import {drawStudy} from './postcard.js?v=08';
+import {workColors} from './workshop-model.js?v=08-en';
+import {shops,localToWorld,worldToLocal} from './layout.js?v=08-en';
+import {STUDIES} from './interactions.js?v=08-en';
+import {drawStudy} from './postcard.js?v=08-en';
 // All of this group is dynamic: never pass it to batchStatic(). No additional lights/shadows.
 export function addStudies({T,group,box,cyl,ball,rod,mesh,M,story}){
  const root=group('12_Live_Colour_Studies'),stations=new Map();

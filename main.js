@@ -1,19 +1,19 @@
 import * as T from 'three';
-import { advancePosition } from './navigation.js?v=08';
-import { tablePositions, seatsForTable, tabletop, shops, localToWorld, doorLayout } from './layout.js?v=08';
-import { addCommerce } from './commerce.js?v=08';
+import { advancePosition } from './navigation.js?v=08-en';
+import { tablePositions, seatsForTable, tabletop, shops, localToWorld, doorLayout } from './layout.js?v=08-en';
+import { addCommerce } from './commerce.js?v=08-en';
 import { addCafe } from './cafe.js?v=08-entry';
-import { createNightPalette, STORAGE_KEY } from './interactions.js?v=08';
-import { addStudies } from './studies.js?v=08';
+import { createNightPalette, STORAGE_KEY } from './interactions.js?v=08-en';
+import { addStudies } from './studies.js?v=08-en';
 import { createStoryUI } from './story-ui.js?v=08-entry';
-import { cafeBuildingColliders, cafeShop } from './cafe-door.js?v=08';
+import { cafeBuildingColliders, cafeShop } from './cafe-door.js?v=08-en';
 // A deliberately small, offline, art-directed material study. All assets are procedural.
 const $=id=>document.getElementById(id), canvas=$('scene');
 let seed=18880918;const rnd=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
 const rand=(a,b)=>a+(b-a)*rnd(),pick=a=>a[Math.floor(rnd()*a.length)];
 const scene=new T.Scene();scene.background=new T.Color('#172b49');scene.fog=new T.FogExp2('#253a55',.022);
 let renderer;
-try{renderer=new T.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance',preserveDrawingBuffer:true});}catch(e){$('load-message').textContent='WebGL2 初始化失败；请使用支持硬件加速的浏览器。';throw e;}
+try{renderer=new T.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance',preserveDrawingBuffer:true});}catch(e){$('load-message').textContent='WebGL2 could not initialize. Please use a browser with hardware acceleration.';throw e;}
 renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.08;
 renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;renderer.shadowMap.autoUpdate=false;renderer.info.autoReset=false;
 const camera=new T.PerspectiveCamera(53,1,.07,90), world=new T.Group();world.name='Cafe_Le_Soir_Detail_Study';scene.add(world);
@@ -128,7 +128,7 @@ for(const z of [3.93,-2.92,-9.74]){rod([-1.54,.15,z],[-1.54,3.37,z],.033,M.iron,
 rod([-1.54,3.31,4],[-1.54,3.31,-9.8],.032,M.iron,details);
 // Fine painted lettering and a real hanging sign.
 function labelTexture(text,sub,bg='#172c29',fg='#ddc795',w=1024,h=256){const c=document.createElement('canvas');c.width=w;c.height=h;const ct=c.getContext('2d');ct.fillStyle=bg;ct.fillRect(0,0,w,h);ct.strokeStyle=fg;ct.lineWidth=2;ct.strokeRect(14,14,w-28,h-28);ct.textAlign='center';ct.fillStyle=fg;ct.font=`${h*.27}px Georgia`;ct.fillText(text,w/2,h*.49);ct.font=`${h*.09}px Georgia`;ct.fillText(sub,w/2,h*.76);const t=new T.CanvasTexture(c);t.colorSpace=T.SRGBColorSpace;t.anisotropy=8;return t;}
-const signTex=labelTexture('CAFÉ · LE SOIR','CAFÉ  —  VIN  —  CONVERSATION');const signMat=mat('#ffffff',null,.8,0,{map:signTex});const sign=mesh(new T.PlaneGeometry(2.64,.68),signMat,-3.772,4.46,.43,details);sign.rotation.y=Math.PI/2;
+const signTex=labelTexture('EVENING CAFÉ','COFFEE  —  WINE  —  CONVERSATION');const signMat=mat('#ffffff',null,.8,0,{map:signTex});const sign=mesh(new T.PlaneGeometry(2.64,.68),signMat,-3.772,4.46,.43,details);sign.rotation.y=Math.PI/2;
 box(-3.84,4.46,.43,.1,.75,2.74,M.walnut,details);
 // Thonet-inspired bentwood chairs with curved rails, woven seats and joint collars.
 const weave=document.createElement('canvas');weave.width=weave.height=256;const wc=weave.getContext('2d');wc.fillStyle='#8d6937';wc.fillRect(0,0,256,256);for(let i=0;i<256;i+=8){wc.strokeStyle=i%16?'#b69351':'#614a2d';wc.lineWidth=3;wc.beginPath();wc.moveTo(i,0);wc.lineTo(i,256);wc.moveTo(0,i);wc.lineTo(256,i);wc.stroke();}const wt=new T.CanvasTexture(weave);wt.colorSpace=T.SRGBColorSpace;const wicker=mat('#e5c487',null,.82,0,{map:wt});
@@ -159,7 +159,7 @@ function lantern(z){const x=-3.32,y=2.72;rod([-4,y+.53,z],[x,y+.53,z],.022,M.iro
  const light=new T.PointLight('#ffc573',19,6,2);light.position.set(x+.15,y,z);scene.add(light);warmLights.push({light,intensity:19});}
 for(const z of [3.52,.45,-2.94,-6.27,-9.60])lantern(z);
 // Door-side menu board: legible object-scale details rather than oversized floating UI.
-const menuCanvas=document.createElement('canvas');menuCanvas.width=512;menuCanvas.height=768;const mc=menuCanvas.getContext('2d');mc.fillStyle='#24382e';mc.fillRect(0,0,512,768);mc.strokeStyle='#cabb92';mc.lineWidth=2;mc.strokeRect(19,19,474,730);mc.textAlign='center';mc.fillStyle='#e0d2ac';mc.font='58px Georgia';mc.fillText('LE SOIR',256,132);mc.font='20px Georgia';mc.fillText('CAFÉ • VIN • ARLES',256,187);mc.font='26px Georgia';for(const [i,t] of ['MENU DU JOUR','────────','Soupe à l’oignon','Pain de campagne','Fromage & olives','────────','Prenez votre temps.'].entries())mc.fillText(t,256,300+i*48);mc.font='24px Georgia';mc.fillText('SERVICE EN TERRASSE',256,689);const menuTex=new T.CanvasTexture(menuCanvas);menuTex.colorSpace=T.SRGBColorSpace;menuTex.anisotropy=8;
+const menuCanvas=document.createElement('canvas');menuCanvas.width=512;menuCanvas.height=768;const mc=menuCanvas.getContext('2d');mc.fillStyle='#24382e';mc.fillRect(0,0,512,768);mc.strokeStyle='#cabb92';mc.lineWidth=2;mc.strokeRect(19,19,474,730);mc.textAlign='center';mc.fillStyle='#e0d2ac';mc.font='58px Georgia';mc.fillText('EVENING',256,132);mc.font='20px Georgia';mc.fillText('COFFEE • WINE • ARLES',256,187);mc.font='26px Georgia';for(const [i,t] of ['TODAY’S MENU','────────','Onion soup','Country bread','Cheese & olives','────────','Take your time.'].entries())mc.fillText(t,256,300+i*48);mc.font='24px Georgia';mc.fillText('TERRACE SERVICE',256,689);const menuTex=new T.CanvasTexture(menuCanvas);menuTex.colorSpace=T.SRGBColorSpace;menuTex.anisotropy=8;
 const menuMat=mat('#ffffff',null,.92,0,{map:menuTex}),mg=new T.Group();mg.position.set(-1.9,.16,3.25);mg.rotation.y=.28;details.add(mg);box(0,.55,0,.62,1.06,.07,M.walnut,mg);mesh(new T.PlaneGeometry(.53,.91),menuMat,0,.56,.041,mg);for(const s of [-1,1]){rod([s*.28,.04,.12],[s*.28,1.12,0],.025,M.wood,mg);rod([s*.28,.04,-.44],[s*.28,1.12,0],.023,M.wood,mg);}collider(-1.9,3.1,.7,.6);
 // Plants: dozens of curved leaves, not a single faceted green sphere.
 const leafG=new T.SphereGeometry(1,7,4);function plant(x,z,s=1){const y=.18;const pg=new T.LatheGeometry([[.17,0],[.19,.05],[.22,.39],[.245,.41],[.25,.45],[.21,.45],[.205,.4],[.18,.06]].map(a=>new T.Vector2(a[0]*s,a[1]*s)),24);mesh(pg,M.terracotta,x,y,z,details);cyl(x,y+.40*s,z,.205*s,.02,M.soil,details,20);
@@ -225,12 +225,12 @@ function resize(){const p=profiles[quality],ratio=Math.min(devicePixelRatio,p.dp
 function applyQuality(){const p=profiles[quality];for(const l of [moon,key]){l.shadow.mapSize.set(p.shadow,p.shadow);if(l.shadow.map){l.shadow.map.dispose();l.shadow.map=null;}}aoMat.uniforms.enabled.value=p.ao?1:0;postMat.uniforms.useAO.value=p.ao?1:0;renderer.shadowMap.needsUpdate=true;resize();}
 addEventListener('resize',resize);applyQuality();
 const startPosition=new T.Vector3(2.7,1.74,6.35),lookAt=new T.Vector3(-2.1,2.18,-3.9);let yaw=0,pitch=0;
-function reset(){camera.position.copy(startPosition);camera.lookAt(lookAt);camera.rotation.order='YXZ';yaw=camera.rotation.y;pitch=camera.rotation.x;$('location').innerHTML='露台入口 <span>05 — NIGHT SKETCHBOOK</span>';}
+function reset(){camera.position.copy(startPosition);camera.lookAt(lookAt);camera.rotation.order='YXZ';yaw=camera.rotation.y;pitch=camera.rotation.x;$('location').innerHTML='Terrace entrance <span>05 — NIGHT SKETCHBOOK</span>';}
 reset();
 // Optional documentable starting positions, not routes or automatic camera motion.
 const initialView=new URLSearchParams(location.search).get('view');if(initialView==='table'){camera.position.set(-.80,1.50,2.9);camera.lookAt(-2.30,.98,1.25);yaw=camera.rotation.y;pitch=camera.rotation.x;}else if(initialView==='shops'){camera.position.set(.7,1.74,4.6);camera.lookAt(5.1,1.7,-2.0);yaw=camera.rotation.y;pitch=camera.rotation.x;}else if(initialView==='facade'){camera.position.set(2.0,1.72,-4.0);camera.lookAt(-3.9,2.8,-1.2);yaw=camera.rotation.y;pitch=camera.rotation.x;}
-if(initialView==='shops')$('location').innerHTML='街对面 · 商业街 <span>05 — SEVEN STUDIES</span>';
-if(initialView==='table')$('location').innerHTML='桌椅近景 <span>05 — SEATING DETAILS</span>';
+if(initialView==='shops')$('location').innerHTML='Across the street · Shops <span>05 — SEVEN STUDIES</span>';
+if(initialView==='table')$('location').innerHTML='Tables and chairs · Close-up <span>05 — SEATING DETAILS</span>';
 // Inspection bookmarks only change the initial position, never script walking.
 if(initialView==='street'){camera.position.set(.8,1.72,-10.8);camera.lookAt(-.8,2,-22);yaw=camera.rotation.y;pitch=camera.rotation.x;}
 if(initialView==='door'){
@@ -255,18 +255,18 @@ storyUI=createStoryUI({story:palette,studies,cafe,toast,
  onResume(){keys.clear();drag=false;document.body.classList.remove('story-open');canvas.focus();}
 });
 function enter(){document.body.classList.add('walking');canvas.focus();}
-$('enter').onclick=()=>{enter();toast('WASD 自由行走 · 咖啡馆领取手记 · J 查看方向');};
+$('enter').onclick=()=>{enter();toast('WASD to explore · Collect a journal at the café · J for directions');};
 $('reset').onclick=()=>{reset();enter();};
-function toggleLight(){lightOn=!lightOn;$('lighting').textContent=lightOn?'暖灯 · 开':'暖灯 · 关';for(const {light,intensity} of warmLights)light.intensity=lightOn?intensity:0;M.glow.emissiveIntensity=lightOn?3.2:.02;M.window.emissiveIntensity=lightOn?.35:.02;canvas.focus();}
+function toggleLight(){lightOn=!lightOn;$('lighting').textContent=lightOn?'Warm lights · On':'Warm lights · Off';for(const {light,intensity} of warmLights)light.intensity=lightOn?intensity:0;M.glow.emissiveIntensity=lightOn?3.2:.02;M.window.emissiveIntensity=lightOn?.35:.02;canvas.focus();}
 $('lighting').onclick=toggleLight;
-$('quality').onchange=e=>{quality=e.target.value;applyQuality();frameTimes=[];frames=0;fpsStart=performance.now();toast(`已切换${e.target.selectedOptions[0].textContent} · ${frameW} × ${frameH}`);canvas.focus();};
+$('quality').onchange=e=>{quality=e.target.value;applyQuality();frameTimes=[];frames=0;fpsStart=performance.now();toast(`Switched to ${e.target.selectedOptions[0].textContent} · ${frameW} × ${frameH}`);canvas.focus();};
 $('paint').oninput=e=>{paint=+e.target.value/100;postMat.uniforms.paint.value=paint;$('paint-value').value=e.target.value;};
 $('help').onclick=()=>{keys.clear();drag=false;if(document.pointerLockElement)document.exitPointerLock();$('help-dialog').showModal();};
 $('close-help').onclick=()=>{$('help-dialog').close();canvas.focus();};
 $('help-dialog').addEventListener('close',()=>{keys.clear();canvas.focus();});
-$('pointer-lock').onclick=async()=>{$('help-dialog').close();enter();try{await canvas.requestPointerLock();}catch{toast('此浏览器未允许鼠标锁定，请按住鼠标拖动环顾。');}};
+$('pointer-lock').onclick=async()=>{$('help-dialog').close();enter();try{await canvas.requestPointerLock();}catch{toast('This browser did not allow pointer lock. Hold and drag the mouse to look around.');}};
 document.addEventListener('pointerlockchange',()=>{locked=document.pointerLockElement===canvas;document.body.classList.toggle('locked',locked);drag=false;});
-document.addEventListener('pointerlockerror',()=>toast('鼠标锁定不可用；按住鼠标仍可自由环顾。'));
+document.addEventListener('pointerlockerror',()=>toast('Pointer lock is unavailable; hold and drag to look around.'));
 const keyCode=e=>e.code||({w:'KeyW',a:'KeyA',s:'KeyS',d:'KeyD',r:'KeyR',e:'KeyE',j:'KeyJ'}[e.key?.toLowerCase()]||e.key);
 addEventListener('keydown',e=>{if($('help-dialog').open||storyUI.open||['INPUT','SELECT','BUTTON','A','SUMMARY'].includes(document.activeElement.tagName))return;const code=keyCode(e);if(['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space'].includes(code))e.preventDefault();keys.add(code);
  // Preserve short taps that begin and end between animation frames.
@@ -281,7 +281,7 @@ document.addEventListener('mousemove',e=>{if(locked&&!storyUI.open){yaw-=e.movem
 function move(f,s,dt,slow=false){if(!f&&!s)return;
  const next=advancePosition(camera.position,yaw,f,s,dt,colliders,slow,[...commerce.walkableAreas,...cafe.walkableAreas]);
  camera.position.x=next.x;camera.position.z=next.z;
- const elevation=camera.position.x<-.83&&camera.position.z<4.6&&camera.position.z> -10.9?.14:0;camera.position.y=T.MathUtils.lerp(camera.position.y,1.70+elevation,1-Math.exp(-dt*9));document.body.classList.add('walking');$('location').innerHTML='自由游走 <span>YOUR PACE, YOUR POINT OF VIEW</span>';}
+ const elevation=camera.position.x<-.83&&camera.position.z<4.6&&camera.position.z> -10.9?.14:0;camera.position.y=T.MathUtils.lerp(camera.position.y,1.70+elevation,1-Math.exp(-dt*9));document.body.classList.add('walking');$('location').innerHTML='Free exploration <span>YOUR PACE, YOUR POINT OF VIEW</span>';}
 let padConnected=false,padPrevious=[];
 function gamepad(dt){
  const p=Array.from(navigator.getGamepads?.()||[]).find(p=>p&&p.mapping==='standard');padConnected=!!p;
@@ -308,15 +308,15 @@ function animate(now){requestAnimationFrame(animate);const dt=Math.min((now-prev
  const activeAction=cafeState.action||commerceState.action;
  const hint=activeAction?`E · ${activeAction.label}`:'';
  if(hint!==interactionText){$('interact').textContent=hint;$('interaction').hidden=!hint;interactionText=hint;}
- const roomText=cafeState.inside?'咖啡馆 · 靠近画架按 E':commerceState.currentLabel?`店内 · ${commerceState.currentLabel} / 靠近柜台按 E`:'店门 E · 手记 J · 自由行走，无规定路线';
+ const roomText=cafeState.inside?'Café · Press E near the easel':commerceState.currentLabel?`Inside · ${commerceState.currentLabel} / Press E near the counter`:'E for doors · J for journal · Explore without a fixed route';
  if($('room-status').textContent!==roomText)$('room-status').textContent=roomText;
  if(!$('help-dialog').open&&!storyUI.open){move(Number(keys.has('KeyW'))-Number(keys.has('KeyS')),Number(keys.has('KeyD'))-Number(keys.has('KeyA')),dt,keys.has('ShiftLeft')||keys.has('ShiftRight'));yaw+=(Number(keys.has('ArrowLeft'))-Number(keys.has('ArrowRight')))*dt*1.15;pitch=T.MathUtils.clamp(pitch+(Number(keys.has('ArrowUp'))-Number(keys.has('ArrowDown')))*dt*.8,-1.1,1.08);}
  gamepad(dt);
  const interval=1000/profiles[quality].fps;if(now-renderedAt>=interval-.7){if(renderedAt&&now-renderedAt<250)frameTimes.push(now-renderedAt);if(frameTimes.length>300)frameTimes.shift();renderedAt=now;render();frames++;totalFrames++;}
- if(now-fpsStart>=1000){fps=Math.round(frames*1000/(now-fpsStart));frames=0;fpsStart=now;$('stats').textContent=`${fps} FPS · ${frameW}×${frameH} · ${Math.round(triangles/1000)}k tris`;$('pad').textContent=padConnected?'手柄已连接':'手柄待连接';const sorted=[...frameTimes].sort((a,b)=>a-b);$('diagnostics').textContent=JSON.stringify({ready:true,sceneVersion:'06-hands-on-workshops',palette:{...palette.snapshot(),coreCount:palette.coreCount,canFinish:palette.canFinish},storyPanel:storyUI.open,insideCafe:cafeState.inside,insideShop:commerceState.currentShop,nearbyAction:activeAction?.label??null,doors:[...commerce.doors,cafe.door].map(d=>({id:d.shop.id,open:d.progress===1,progress:+d.progress.toFixed(2)})),visibleRooms:commerce.rooms.filter(r=>r.root.visible).length,shops:commerce.shopCount,chairs:tablePositions.length*2,three:T.REVISION,quality,fps,cap:profiles[quality].fps,framebuffer:[frameW,frameH],camera:camera.position.toArray().map(v=>+v.toFixed(3)),yaw:+yaw.toFixed(3),pitch:+pitch.toFixed(3),drawCalls,triangles,textures:renderer.info.memory.textures,geometries:renderer.info.memory.geometries,frameTimeMedian:sorted.length?+sorted[Math.floor(sorted.length*.5)].toFixed(2):0,frameTimeP95:sorted.length?+sorted[Math.floor(sorted.length*.95)].toFixed(2):0,lightOn,paint,controller:padConnected,collisionBodies:colliders.length,totalFrames,renderer:T.REVISION,exportedImage:'renders/studio.png'});}
+ if(now-fpsStart>=1000){fps=Math.round(frames*1000/(now-fpsStart));frames=0;fpsStart=now;$('stats').textContent=`${fps} FPS · ${frameW}×${frameH} · ${Math.round(triangles/1000)}k tris`;$('pad').textContent=padConnected?'Controller connected':'No controller connected';const sorted=[...frameTimes].sort((a,b)=>a-b);$('diagnostics').textContent=JSON.stringify({ready:true,sceneVersion:'06-hands-on-workshops',palette:{...palette.snapshot(),coreCount:palette.coreCount,canFinish:palette.canFinish},storyPanel:storyUI.open,insideCafe:cafeState.inside,insideShop:commerceState.currentShop,nearbyAction:activeAction?.label??null,doors:[...commerce.doors,cafe.door].map(d=>({id:d.shop.id,open:d.progress===1,progress:+d.progress.toFixed(2)})),visibleRooms:commerce.rooms.filter(r=>r.root.visible).length,shops:commerce.shopCount,chairs:tablePositions.length*2,three:T.REVISION,quality,fps,cap:profiles[quality].fps,framebuffer:[frameW,frameH],camera:camera.position.toArray().map(v=>+v.toFixed(3)),yaw:+yaw.toFixed(3),pitch:+pitch.toFixed(3),drawCalls,triangles,textures:renderer.info.memory.textures,geometries:renderer.info.memory.geometries,frameTimeMedian:sorted.length?+sorted[Math.floor(sorted.length*.5)].toFixed(2):0,frameTimeP95:sorted.length?+sorted[Math.floor(sorted.length*.95)].toFixed(2):0,lightOn,paint,controller:padConnected,collisionBodies:colliders.length,totalFrames,renderer:T.REVISION,exportedImage:'renders/studio.png'});}
 }
-$('capture').onclick=async()=>{const button=$('capture');button.disabled=true;const oldAspect=camera.aspect;try{setRenderSize(1800,1200);render();const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));if(!blob)throw new Error('截图为空');const res=await fetch('/api/save/png',{method:'POST',headers:{'Content-Type':'image/png'},body:blob});if(!res.ok)throw new Error('本地保存失败');toast('已保存：renders/studio.png（1800 × 1200）');}catch(e){toast(e.message);}finally{resize();button.disabled=false;canvas.focus();}};
-canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();paused=true;$('loading').classList.remove('done');$('load-message').textContent='显存资源暂时不可用。请关闭其他 3D 页面后刷新，或改用流畅档。';});
+$('capture').onclick=async()=>{const button=$('capture');button.disabled=true;const oldAspect=camera.aspect;try{setRenderSize(1800,1200);render();const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));if(!blob)throw new Error('The screenshot is empty');const res=await fetch('/api/save/png',{method:'POST',headers:{'Content-Type':'image/png'},body:blob});if(!res.ok)throw new Error('Local save failed');toast('Saved: renders/studio.png (1800 × 1200)');}catch(e){toast(e.message);}finally{resize();button.disabled=false;canvas.focus();}};
+canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();paused=true;$('loading').classList.remove('done');$('load-message').textContent='Graphics resources are temporarily unavailable. Close other 3D pages and refresh, or switch to Performance mode.';});
 canvas.addEventListener('webglcontextrestored',()=>location.reload());
 commerce.update(camera.position,0,lightOn);cafe.update(camera.position,0,lightOn,palette);studies.update(camera.position);
-try{await renderer.compileAsync(scene,camera);renderer.shadowMap.needsUpdate=true;render();$('loading').classList.add('done');requestAnimationFrame(animate);}catch(e){$('load-message').textContent='渲染初始化失败：'+e.message;console.error(e);}
+try{await renderer.compileAsync(scene,camera);renderer.shadowMap.needsUpdate=true;render();$('loading').classList.add('done');requestAnimationFrame(animate);}catch(e){$('load-message').textContent='Rendering initialization failed: '+e.message;console.error(e);}

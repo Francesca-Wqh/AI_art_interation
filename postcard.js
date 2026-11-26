@@ -1,6 +1,6 @@
-import {drawWorkshop, drawInk} from './workshop-art.js?v=08';
-import {workColors,defaultWork,normalizeWork,inkColors} from './workshop-model.js?v=08';
-import {commissionFor} from './commissions.js?v=08';
+import {drawWorkshop, drawInk} from './workshop-art.js?v=08-en';
+import {workColors,defaultWork,normalizeWork,inkColors} from './workshop-model.js?v=08-en';
+import {commissionFor} from './commissions.js?v=08-en';
 // Small deterministic raster studies drawn locally; no generated historical claims or external assets.
 export function drawStudy(canvas,id,choice,work=null){
  if(work){drawWorkshop(canvas,id,work,-2);return;}
@@ -72,5 +72,5 @@ export function drawPostcard(canvas,state={}){
  c.restore();
  // A restrained paint texture, no longer overpowering the player's marks.
  for(let i=0;i<95;i++){const x=45+(i*113)%905,y=45+(i*73)%606;line(x,y,x+5+(i%4)*3,y+(i%3)-1,i%2?'#f1d4a225':'#9db8c127',1.4+(i%3));}
- c.fillStyle='#464a4e';c.font='23px Georgia';c.fillText(commissionFor(state.brief).title,43,705);c.font='14px sans-serif';c.textAlign='right';c.fillText(state.finished?'已交付给今晚的客人':'创作中的夜晚',955,704);c.fillStyle='#8b8272';c.font='11px sans-serif';c.fillText('COMPOSITION / LIGHT / GESTURE · '+commissionFor(state.brief).guest,955,735);c.restore();
+ c.fillStyle='#464a4e';c.font='23px Georgia';c.fillText(commissionFor(state.brief).title,43,705,540);c.font='14px sans-serif';c.textAlign='right';c.fillText(state.finished?'Delivered to tonight’s guest':'A night in progress',955,704,330);c.fillStyle='#8b8272';c.font='11px sans-serif';c.fillText('COMPOSITION / LIGHT / GESTURE · '+commissionFor(state.brief).guest,955,735,910);c.restore();
 }

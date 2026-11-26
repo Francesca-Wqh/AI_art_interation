@@ -33,7 +33,7 @@ if __name__ == '__main__':
     try:
         server = ThreadingHTTPServer((HOST, PORT), Handler)
     except PermissionError:
-        raise SystemExit(f'无法监听 {HOST}:{PORT}。请在本机终端运行此脚本，或换一个可用端口：PORT=8767 python3 serve.py')
+        raise SystemExit(f'Cannot listen on {HOST}:{PORT}. Run this script in a local terminal or try another port: PORT=8767 python3 serve.py')
     except OSError as exc:
-        raise SystemExit(f'无法启动本地服务 {HOST}:{PORT}：{exc}. 如果端口被占用，可运行 PORT=8767 python3 serve.py')
+        raise SystemExit(f'Cannot start the local server at {HOST}:{PORT}: {exc}. If the port is in use, try PORT=8767 python3 serve.py')
     server.serve_forever()

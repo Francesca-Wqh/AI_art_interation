@@ -1,9 +1,9 @@
-import {createDoorState,advanceDoor,requestDoorToggle} from './doors.js?v=08';
-import {roomContains,localToWorld,localRect,shopWalls} from './layout.js?v=08';
+import {createDoorState,advanceDoor,requestDoorToggle} from './doors.js?v=08-en';
+import {roomContains,localToWorld,localRect,shopWalls} from './layout.js?v=08-en';
 // The first arch is replaced by a real doorway. Coordinates shared with rendering.
-export const cafeShop={id:'cafe',label:'咖啡馆',side:'left',x:-4.08,z:2.1,width:2.9,depth:3.30,doorCenter:0,doorWidth:1.42};
+export const cafeShop={id:'cafe',label:'Café',side:'left',x:-4.08,z:2.1,width:2.9,depth:3.30,doorCenter:0,doorWidth:1.42};
 export const cafeRoom={minX:-7.38,maxX:-2.5,minZ:.65,maxZ:3.55};
-export const cafeAnchor={id:'cafe:night-study',shopId:'cafe',label:'夜色手记与画架',...localToWorld(cafeShop,.12,-1.95)};
+export const cafeAnchor={id:'cafe:night-study',shopId:'cafe',label:'Night journal and easel',...localToWorld(cafeShop,.12,-1.95)};
 export const cafeFixtures=[localRect(cafeShop,.66,-2.85,1.2,.5),localRect(cafeShop,-1.11,-2.0,.38,1.55)];
 // Exclude the original solid building from this one room; all other recesses stay closed.
 export const cafeBuildingColliders=[

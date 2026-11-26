@@ -1,7 +1,7 @@
 // v08: three differentiated workshop games — arrange, distribute, and trace.
 export const WORKSHOP_IDS = ['books', 'cloth', 'atelier'];
-export const COMPOSITION_NAMES = ['天空留白', '咖啡馆近景', '街道纵深', '窗内望街'];
-export const WEATHER_NAMES = ['晴朗', '薄雾', '雨后'];
+export const COMPOSITION_NAMES = ['Open sky', 'Café close-up', 'Receding street', 'Street from a window'];
+export const WEATHER_NAMES = ['Clear', 'Misty', 'After rain'];
 export const inkColors = ['#f2ce87', '#a9c5d3', '#d49b99', '#6e9092'];
 export const TILE_SLOTS = [[.25,.25],[.75,.25],[.25,.75],[.75,.75]];
 export const BEACONS = [[.18,.28],[.37,.18],[.57,.29],[.76,.18],[.84,.34]];
@@ -100,9 +100,9 @@ export function workColors(w={}) {
 }
 export function describeWork(id,w){
  if(!w)return '';
- if(id==='books')return `${w.tiles.length}/4 块街景已归位 · ${w.layout>=2?'街道线':'天空线'}`;
- if(id==='cloth')return `${w.chips.length} 枚色点 · ${w.weather===2?'雨后反光':w.weather===1?'薄雾叠色':'清晰夜色'} · 暖色 ${Math.round(w.balance*100)}%`;
- if(id==='atelier')return `${w.strokes.length} 道笔迹 · ${w.hits.length}/5 盏灯被追上`;
- return id==='produce'?'6 枚果实 · 成为最终画面的桌面主体':id==='wine'?`街区灵感 · 衬色色相 ${Math.round(w.hue*160)}°`:id==='bakery'?`街区灵感 · ${w.temperature>.5?'偏冷的月光':'偏暖的炉火'}`:'7 枝花 · 成为最终画面的前景节奏';
+ if(id==='books')return `${w.tiles.length}/4 street fragments placed · ${w.layout>=2?'Street view':'Skyline'}`;
+ if(id==='cloth')return `${w.chips.length} color dots · ${w.weather===2?'After-rain reflections':w.weather===1?'Misty layers':'Clear night'} · Warmth ${Math.round(w.balance*100)}%`;
+ if(id==='atelier')return `${w.strokes.length} strokes · ${w.hits.length}/5 lights caught`;
+ return id==='produce'?'6 fruits · Still-life subjects in the final scene':id==='wine'?`Street inspiration · Accent hue ${Math.round(w.hue*160)}°`:id==='bakery'?`Street inspiration · ${w.temperature>.5?'Cool moonlight':'Warm firelight'}`:'7 flowers · Foreground rhythm in the final scene';
 }
 export function strokeMetrics(strokes=[]){let length=0,turns=0,dots=0,horizontal=0,vertical=0;for(const s of strokes){if(s.points.length<2){dots++;continue;}let previousAngle=null;for(let i=1;i<s.points.length;i++){const dx=s.points[i][0]-s.points[i-1][0],dy=s.points[i][1]-s.points[i-1][1];length+=Math.hypot(dx,dy);const angle=Math.atan2(dy,dx);if(Math.abs(dx)>Math.abs(dy)*1.5)horizontal++;if(Math.abs(dy)>Math.abs(dx)*1.5)vertical++;if(previousAngle!==null)turns+=Math.abs(Math.atan2(Math.sin(angle-previousAngle),Math.cos(angle-previousAngle)));previousAngle=angle;}}return {length,turns,dots,horizontal,vertical};}

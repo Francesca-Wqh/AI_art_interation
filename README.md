@@ -1,67 +1,78 @@
-# Café Terrasse Studio · 夜色手作
+# Café Terrasse Studio · Night Workshops
 
-## 当前版本 v08：三个真正不同的夜间游戏
+An interactive, browser-based art prototype built with JavaScript, Three.js, HTML, and CSS. Explore a small 3D street, accept a guest's nighttime commission, and shape a personal nightscape through three hands-on workshops.
 
-这次不是把七个店铺各自换一套题目，而是把可玩的核心收束成三个动作完全不同的工作坊：
+## Version 08: Three Distinct Ways to Create
 
-1. **书店｜拼一条街**：拖动四块街景片段，让道路、窗框和灯光接起来；松手会吸附到附近位置，空格旋转当前片段。它改变最终夜景的空间骨架。
-2. **布料铺｜编织一束光**：把九枚色点拖进“天空 / 灯下 / 湿路”三条布带，空格切换晴朗、薄雾、雨后。它改变最终夜景的色彩并置、发光和反光。
-3. **陶器工坊｜追着灯光写一笔**：按住鼠标或触控沿着五盏光点画线，追上的光点会进入最终夜景；键盘空格可以起笔 / 收笔。它改变星光、风、倒影和笔触。
+Instead of giving each of seven shops a different set of questions, this version focuses on three workshops with genuinely different interactions:
 
-三个游戏分别对应 **空间、色彩、动作**。它们没有唯一正确答案，也没有积分、排行榜或失败惩罚；玩家可以反复尝试，最后把自己的版本交给客人。
+1. **Bookshop — Piece Together a Street:** Drag four street fragments to connect roads, window frames, and lights. Pieces snap into position when released; press Space to rotate the selected piece. This shapes the spatial composition of the final nightscape.
+2. **Fabric Shop — Weave a Beam of Light:** Drag nine color dots into three bands: sky, lamplight, and wet pavement. Press Space to cycle through clear, misty, and after-rain weather. This shapes color relationships, glow, and reflections.
+3. **Pottery Studio — Follow the Light:** Hold the mouse or touch the canvas to draw through five points of light. Captured lights become part of the final nightscape; Space starts or ends a keyboard-drawn stroke. This shapes starlight, wind, reflections, and brushwork.
 
-七个实体店铺仍然保留在 3D 街道里，但只有书店、布料铺和陶器工坊是核心创作站。其余店铺作为街景和可进入的空间存在，不再把“逐店打卡”当成游戏目标。
+The workshops explore **space, color, and gesture**. There is no single correct answer, score, leaderboard, or penalty for failure. Players can experiment freely before delivering their interpretation to the guest.
 
-## 设计依据
+All seven physical shops remain in the 3D street, but only the bookshop, fabric shop, and pottery studio are core creative stations. The remaining shops provide scenery and explorable interiors; visiting every shop is not a completion requirement.
 
-研究记录见 [`research/interaction-concept-v08.md`](research/interaction-concept-v08.md)。本轮参考了：
+## Design References
 
-- **Gorogoa / Carto**：用空间重排、拼接和地图片段改变观看关系；
-- **Florence**：用短促、身体化的小动作表达情绪，而不是用问答解释情绪；
-- **Pentiment**：把历史艺术语境转成界面和笔触气质，但不把作品伪装成史实复原。
+See [`research/interaction-concept-v08.md`](research/interaction-concept-v08.md) for the design notes. References for this iteration include:
 
-本项目只借用“观看、并置、笔触、平面形色”等创作问题，不复原名画，也不声称店铺或玩法是 1888 年阿尔勒街道的历史事实。
+- **Gorogoa / Carto:** Spatial rearrangement and connected fragments that change how a scene is read.
+- **Florence:** Short, embodied gestures that express emotion rather than explain it through a questionnaire.
+- **Pentiment:** Historical art as inspiration for interface and mark-making, without presenting a fictional experience as a historical reconstruction.
 
-## 运行
+This project explores looking, juxtaposition, brushwork, and flat shapes and colors. It does not reproduce a famous painting or claim that its shops and activities are historically accurate depictions of Arles in 1888.
+
+## Run Locally
+
+Requirements: Python 3 and a modern browser with WebGL support. Node.js is needed only for the automated checks below. Three.js is bundled in `vendor/`; no package installation or AI API key is required.
 
 ```bash
-cd "/Users/wqh/Desktop/2026 fall/aie3905/cafe-terrace-studio"
+git clone https://github.com/Francesca-Wqh/AI_art_interation.git
+cd AI_art_interation
 python3 serve.py
 ```
 
-然后打开：
+Then open:
 
-- [三个夜间游戏试玩](http://127.0.0.1:8766/workshops.html)
-- [完整 3D 街道](http://127.0.0.1:8766/index.html)
+- [Standalone workshop demo](http://127.0.0.1:8766/workshops.html)
+- [Full 3D street](http://127.0.0.1:8766/index.html)
 
-如果 `127.0.0.1:8766` 打不开，先确认 `python3 serve.py` 的终端窗口仍在运行；如果提示端口已占用，关闭旧的服务进程后再启动。也可以直接双击 `start.command`。
+Keep the server terminal open while using the app. If port 8766 is already in use, stop the previous server or run `PORT=8767 python3 serve.py` and use port 8767 in the browser. On macOS, you can also double-click `start.command`.
 
-## 操作
+## Controls
 
-- 3D 街道：WASD / 方向键移动，鼠标调整视角，E 与门和工作台互动。
-- 书店：鼠标拖动片段，松手吸附；点击“换一块片段”或按 Tab 选中后用方向键移动；空格旋转。
-- 布料铺：拖动色点；点击天气按钮或按空格循环天气；方向键微调选中的色点。
-- 陶器工坊：按住鼠标拖线追光；空格起笔 / 收笔；方向键移动光标；可选择笔色。
-- 所有工作台都支持撤销、重做和恢复本次初稿。
+- **3D street:** WASD or arrow keys to move; mouse to look around; E to interact with doors and workstations.
+- **Bookshop:** Drag fragments and release to snap. Select the next fragment with the on-screen button, or use Tab to focus the canvas and arrow keys to move the selected fragment. Space rotates it.
+- **Fabric shop:** Drag color dots, use weather buttons or Space to change the weather, and use arrow keys to adjust the selected dot.
+- **Pottery studio:** Hold and drag to trace the lights. Space starts or ends a stroke, arrow keys move the cursor, and color buttons select the ink.
+- **All workstations:** Undo, redo, and restore the draft that was open when the workshop started.
 
-## 本地数据与验证
+## Local Data and Validation
 
-- 进度只写入浏览器 `localStorage`，不上传数据，不调用 AI API。
-- 状态存档版本为 v08，可读取 v05 / v06 / v07 的旧核心进度；旧的选择结果会保留为兼容内容，不会强迫用户重新打卡七个店。
-- 运行语法检查：
+- Progress is stored in the browser's `localStorage`. The app does not upload progress or call an AI API.
+- Save format v08 can read older core progress from v05, v06, and v07. Legacy choices remain available for compatibility without requiring players to revisit all seven shops.
+- The standalone demo has separate saved progress and does not overwrite the 3D street's journal.
+
+Check JavaScript syntax:
 
 ```bash
 for f in *.js; do node --check "$f" || exit 1; done
 ```
 
-- 运行自动化测试：
+Run automated tests:
 
 ```bash
 node --test *.test.mjs
 ```
 
-自动化测试覆盖状态机、存档迁移、画布绘制、工作台手势和 CPU 侧 3D 场景契约；它不等同于最终浏览器排版、触屏性能、WebGL 长时间运行或实体手柄验收。
+The tests cover the state machine, save migration, canvas drawing, workshop gestures, and CPU-side 3D scene contracts. They do **not** replace final browser layout checks, touch-device performance testing, extended WebGL testing, or physical-controller acceptance testing.
 
-## 历史版本
+## Earlier Iterations
 
-`research/interaction-concept-v05.md` 和 `research/interaction-concept-v06.md` 保留了前几轮“七个工作台”的设计记录，便于比较设计如何从“选择题”收束到三个更有辨识度的动作游戏。
+[`research/interaction-concept-v05.md`](research/interaction-concept-v05.md) and [`research/interaction-concept-v06.md`](research/interaction-concept-v06.md) preserve the earlier seven-workstation designs, documenting the transition from multiple-choice interactions to three distinctive gesture-based activities.
+
+## Third-Party Code
+
+The bundled Three.js distribution retains its original license in [`vendor/THREE-LICENSE.txt`](vendor/THREE-LICENSE.txt).

@@ -1,5 +1,5 @@
-import {cafeShop,cafeRoom,cafeAnchor,createCafeDoorState,cafeRoomContains,requestCafeDoorToggle,advanceCafeDoor} from './cafe-door.js?v=08';
-import {doorLayout,worldToLocal} from './layout.js?v=08';
+import {cafeShop,cafeRoom,cafeAnchor,createCafeDoorState,cafeRoomContains,requestCafeDoorToggle,advanceCafeDoor} from './cafe-door.js?v=08-en';
+import {doorLayout,worldToLocal} from './layout.js?v=08-en';
 
 export function addCafe({T,scene,group,mesh,box,cyl,ball,rod,mat,M,labelTexture,colliders,warmLights}){
  const root=group('09_Cafe_Interior'),moving=group('10_Cafe_Moving'),art=group('11_Cafe_Painting');
@@ -15,7 +15,7 @@ export function addCafe({T,scene,group,mesh,box,cyl,ball,rod,mat,M,labelTexture,
  for(const sign of [-1,1])box(sign*.89,1.18,0,.34,2.36,.14,M.door,g);
  box(0,2.65,0,1.98,.56,.12,M.door,g);
  // A street-facing, unlit plaque stays legible under the awning without extra lights.
- const welcome=new T.MeshBasicMaterial({map:labelTexture('咖啡馆 · 入口','CAFÉ / ENTRÉE · 靠近按 E 开门','#efdeb5','#253c39'),toneMapped:false});
+ const welcome=new T.MeshBasicMaterial({map:labelTexture('Café · Entrance','Approach and press E to open','#efdeb5','#253c39'),toneMapped:false});
  const sign=mesh(new T.PlaneGeometry(1.72,.43),welcome,0,2.65,.20,g);
  sign.name='Cafe_Entrance_Sign';sign.castShadow=false;sign.receiveShadow=false;
  // Cream jambs sit outside the clear opening; the moving leaf and collision stay unchanged.
@@ -53,10 +53,10 @@ export function addCafe({T,scene,group,mesh,box,cyl,ball,rod,mat,M,labelTexture,
   advanceCafeDoor(door,dt);hinge.rotation.y=door.progress*Math.PI/2;inside=cafeRoomContains(position);
   entry.intensity=Math.hypot(position.x+5.5,position.z-2.1)<7?21:0;roomLight.intensity=lightsOn?entry.intensity:0;
   action=null;const p=worldToLocal(cafeShop,position.x,position.z);
-  if(Math.hypot(p.u,p.v)<2.1&&Math.abs(p.u)<.95)action={kind:'cafe-door',label:`${door.target?'关门':'开门'} · 咖啡馆`};
-  if(inside&&Math.hypot(position.x-cafeAnchor.x,position.z-cafeAnchor.z)<1.30)action={kind:'cafe-story',label:!story.started?'领取夜色手记':story.finished?'查看我的夜景':story.canFinish?'完成我的夜景':'翻开夜色手记'};
+  if(Math.hypot(p.u,p.v)<2.1&&Math.abs(p.u)<.95)action={kind:'cafe-door',label:`${door.target?'Close door':'Open door'} · Café`};
+  if(inside&&Math.hypot(position.x-cafeAnchor.x,position.z-cafeAnchor.z)<1.30)action={kind:'cafe-story',label:!story.started?'Collect the night journal':story.finished?'View my nightscape':story.canFinish?'Finish my nightscape':'Open the night journal'};
   return {inside,action};
  }
- function interact(position){if(action?.kind==='cafe-door'){if(!requestCafeDoorToggle(door,position))return '请先离开门扇活动区域，再开关门。';window.dispatchEvent(new CustomEvent('cafe:door-change',{detail:{shopId:'cafe',open:!!door.target}}));return `咖啡馆 · 正在${door.target?'开门':'关门'}`;}return null;}
+ function interact(position){if(action?.kind==='cafe-door'){if(!requestCafeDoorToggle(door,position))return 'Step clear of the door before opening or closing it.';window.dispatchEvent(new CustomEvent('cafe:door-change',{detail:{shopId:'cafe',open:!!door.target}}));return `Café · ${door.target?'Opening':'Closing'}`;}return null;}
  return {staticGroups:[root],walkableAreas:[cafeRoom],door,update,interact,image,texture,anchor:cafeAnchor};
 }

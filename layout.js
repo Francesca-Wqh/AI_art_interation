@@ -16,13 +16,13 @@ export const tabletop = {
   napkin:{x:.24,z:-.15,w:.15,d:.13}
 };
 export const shops = [
-  {id:'produce',side:'right',x:5.56,z:.4,width:4.6,depth:3.8,height:9.3,title:'ÉPICERIE',label:'杂货铺',subtitle:'FRUITS · LÉGUMES · HUILE',anchorLabel:'果蔬称量台',motif:'金色灯火'},
-  {id:'wine',side:'right',x:5.36,z:-7.5,width:5.0,depth:3.8,height:10.4,title:'MARCHAND DE VIN',label:'酒商',subtitle:'VINS · BOUTEILLES · TONNEAUX',anchorLabel:'品酒柜台',motif:'深红回声'},
-  {id:'cloth',side:'right',x:5.06,z:-16,width:4.8,depth:3.8,height:8.8,title:'DRAPERIE',label:'布料铺',subtitle:'TOILES · ÉTOFFES · RUBANS',anchorLabel:'布料配色台',motif:'赭黄织线'},
-  {id:'bakery',side:'right',x:4.7,z:-24.2,width:5.4,depth:4,height:8.4,title:'BOULANGERIE',label:'面包铺',subtitle:'PAIN · BRIOCHES · FOUR',anchorLabel:'面包制作台',motif:'面包余温'},
-  {id:'books',side:'left',x:-3.84,z:-14.2,width:5.4,depth:3.8,height:8.4,title:'LIBRAIRIE',label:'书店',subtitle:'LIVRES · PAPIERS · GRAVURES',anchorLabel:'书信阅读桌',motif:'蓝色夜空'},
-  {id:'florist',side:'left',x:-3.84,z:-20.3,width:5.4,depth:3.8,height:9.2,title:'FLEURS',label:'花店',subtitle:'BOUQUETS · PLANTES · GRAINES',anchorLabel:'花束搭配台',motif:'绿色呼吸'},
-  {id:'atelier',side:'left',x:-3.84,z:-26.4,width:5.4,depth:3.8,height:8.5,title:'ATELIER',label:'陶器工坊',subtitle:'POTERIES · TERRE · COULEURS',anchorLabel:'陶器工作台',motif:'紫色石路'}
+  {id:'produce',side:'right',x:5.56,z:.4,width:4.6,depth:3.8,height:9.3,title:'GROCERY',label:'Grocery',subtitle:'FRUIT · VEGETABLES · OIL',anchorLabel:'Produce counter',motif:'Golden lamplight'},
+  {id:'wine',side:'right',x:5.36,z:-7.5,width:5.0,depth:3.8,height:10.4,title:'WINE MERCHANT',label:'Wine Merchant',subtitle:'WINES · BOTTLES · BARRELS',anchorLabel:'Wine counter',motif:'Crimson echoes'},
+  {id:'cloth',side:'right',x:5.06,z:-16,width:4.8,depth:3.8,height:8.8,title:'FABRIC SHOP',label:'Fabric Shop',subtitle:'CANVAS · FABRICS · RIBBONS',anchorLabel:'Fabric color table',motif:'Ochre threads'},
+  {id:'bakery',side:'right',x:4.7,z:-24.2,width:5.4,depth:4,height:8.4,title:'BAKERY',label:'Bakery',subtitle:'BREAD · BRIOCHE · OVEN',anchorLabel:'Baking table',motif:'Warmth of bread'},
+  {id:'books',side:'left',x:-3.84,z:-14.2,width:5.4,depth:3.8,height:8.4,title:'BOOKSHOP',label:'Bookshop',subtitle:'BOOKS · PAPER · PRINTS',anchorLabel:'Letter-reading desk',motif:'Blue night sky'},
+  {id:'florist',side:'left',x:-3.84,z:-20.3,width:5.4,depth:3.8,height:9.2,title:'FLOWERS',label:'Florist',subtitle:'BOUQUETS · PLANTS · SEEDS',anchorLabel:'Flower-arranging table',motif:'A breath of green'},
+  {id:'atelier',side:'left',x:-3.84,z:-26.4,width:5.4,depth:3.8,height:8.5,title:'STUDIO',label:'Pottery Studio',subtitle:'POTTERY · CLAY · COLORS',anchorLabel:'Pottery workbench',motif:'Violet pavement'}
 ];
 // All facade/room geometry, navigation and tests use these same transforms.
 export function localToWorld(shop,u,v){const f=shop.side==='left'?1:-1;return {x:shop.x+f*v,z:shop.z-f*u};}

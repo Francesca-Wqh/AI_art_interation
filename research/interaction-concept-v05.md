@@ -1,43 +1,43 @@
-# 夜色不止一种颜色 — v05 互动创作说明
+# Night Has More Than One Color — v05 Interaction Design
 
-更新：2026-09-18
+Updated: 2026-09-18
 
-## 观众扮演谁
+## The Visitor's Role
 
-不是梵高本人，也不是替他跑腿的人。观众是一个带着手记游走的观看者：从现实的材料、手作与夜间灯光中，理解一幅画如何成为主观世界。
+The visitor is neither Van Gogh nor someone running errands for him. They are an observer carrying a journal, discovering how a painting becomes a subjective world through everyday materials, craft, and nighttime light.
 
-## 为什么是一条完整的体验
+## A Connected Experience
 
-咖啡馆提出问题：“你会怎样画这一夜？”
+The café asks: “How would you paint this night?”
 
-三项主线依次提供绘画所需的不同决定，但体验顺序不受限制：
+Three core activities supply different decisions needed for painting, in any order:
 
-- 书店提供“看哪里”的决定：近处街道或更大的天空。
-- 布料铺提供“颜色怎样相处”的决定：比较两组冷暖色。
-- 陶器工坊提供“痕迹怎样留下”的决定：让笔触平静或流动。
+- The bookshop asks where to look: a nearby street or a broader sky.
+- The fabric shop asks how colors relate: compare two warm/cool combinations.
+- The pottery studio asks what kind of mark to leave: quiet or flowing brushwork.
 
-其余店铺不是通关门槛，而是日常生活对画面的补充。杂货铺改变静物聚散；酒商改变边框衬色；面包铺改变窗内高光；花店改变前景花束。这些都有对应的画面结果。
+The remaining shops are not completion gates. They bring everyday life into the image: the grocery changes still-life arrangement; the wine merchant changes the surrounding color; the bakery changes window highlights; and the florist changes the foreground bouquet. Each has a corresponding visual result.
 
-回到同一间咖啡馆时，场所没有改变，观看者的选择却已经改变。画架上的个人夜景构成终点；观众也可以返回某家店修改，让“作品不是唯一答案”成为可操作的逻辑。
+On returning to the same café, the place is unchanged but the visitor's choices have changed. Their personal nightscape on the easel provides an endpoint. They can also revisit a shop to revise it, making “there is no single correct artwork” part of the interaction itself.
 
-## 与时代和艺术的关系
+## Relationship to Art and Its Period
 
-视觉参照是用户提案中的《夜间露天咖啡座》。场景使用纸、布、陶器、果蔬、玻璃、花等材料承接夜间街坊的日常生活，避免加入现代商品交易、手机任务、奖励金币等不相称机制。
+The visual reference is *Café Terrace at Night*, as specified in the project proposal. Paper, cloth, pottery, produce, glass, and flowers connect the scene to everyday neighborhood life. Modern shopping transactions, phone-based missions, and reward coins would be out of place and are excluded.
 
-这是一种面向当代观众的形式语言练习，不是声称当时阿尔勒某家商店真的教授这些内容。对颜色、取景与笔触的阐述是创作者的策展设计。
+This is an exercise in visual language for contemporary audiences, not a claim that particular shops in historical Arles taught these activities. Explanations of color, framing, and brushwork are the creators' curatorial choices.
 
-## 历史真实性与研究状态
+## Historical Accuracy and Research Status
 
-- 新增商号、店址、室内陈列、手记任务与对话均未被确认为 1888 年该街道真实发生的事。
-- 未模拟梵高声音，未加入冒充他的第一人称台词。
-- 本轮 web 工具未返回可读来源；随后获取官方书信网页的联网请求未获执行（权限服务异常），未完成原文核验。因此不把候选资料当作已读已核实的引用。
-- 后续优先核验：Van Gogh Letters 官方学术书信版，第 678 封信页面：`https://vangoghletters.org/vg/letters/let678/letter.html`。
-- 另需核验 Kröller-Müller Museum 的《Terrace of a café at night》馆藏说明，以及阿尔勒市档案、历史照片和商业名录；这些尚不能支持本项目对具体店址的真实复原。
+- Added business names, addresses, interiors, journal tasks, and dialogue have not been verified as features of the street in 1888.
+- No simulation of Van Gogh's voice or invented dialogue impersonating him is included.
+- During this iteration, web tools returned no readable sources. A subsequent request to fetch the official letters website did not execute because the permission service failed. Original-source verification was therefore incomplete, and candidate sources are not presented as read or verified.
+- Priority for later verification: letter 678 in the official scholarly edition of *Van Gogh — The Letters*: `https://vangoghletters.org/vg/letters/let678/letter.html`.
+- The Kröller-Müller Museum collection description for *Terrace of a café at night*, Arles municipal archives, historical photographs, and business directories also require verification. They do not yet support an accurate reconstruction of the project's specific shop locations.
 
-## 第一版范围
+## First-Version Scope
 
-已写入：八间室内/店门入口、七项两方案观察、保存与修改、三主线结束条件、程序绘制个人夜景、画架显示、PNG 下载入口、手记方向标记。
+Implemented: eight interior/doorway entrances; seven two-choice observations; saving and editing; completion conditions for the three core activities; a procedurally drawn personal nightscape; easel display; a PNG download entry point; and journal direction markers.
 
-暂未做：NPC、历史人物对白、音频、真实颜料模拟、手势绘画、自由拖拽物件、复杂店内小游戏、多人同时体验。
+Not yet implemented in this version: NPCs, dialogue from historical figures, audio, realistic pigment simulation, gesture drawing, free object dragging, complex shop minigames, or simultaneous multiplayer.
 
-浏览器操作与 WebGL 视觉验收尚未完成；不能把代码单元测试通过等同于展览验收通过。
+Browser interaction and WebGL visual acceptance testing were still pending. Passing unit tests must not be represented as passing exhibition acceptance testing.

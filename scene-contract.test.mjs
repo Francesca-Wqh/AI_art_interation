@@ -57,7 +57,7 @@ test('café entrance plaque faces the street and jambs preserve the clear doorwa
  const f=fixture(),labels=[];f.labelTexture=(...args)=>{labels.push(args);return new T.Texture();};
  addCafe(f);f.scene.updateMatrixWorld(true);
  const sign=f.scene.getObjectByName('Cafe_Entrance_Sign');assert.ok(sign);
- assert.equal(labels[0][0],'咖啡馆 · 入口');assert.match(labels[0][1],/E 开门/);
+ assert.equal(labels[0][0],'Café · Entrance');assert.match(labels[0][1],/press E to open/);
  assert.ok(sign.material.isMeshBasicMaterial);assert.equal(sign.material.toneMapped,false);
  assert.equal(sign.castShadow,false);assert.equal(sign.receiveShadow,false);
  const normal=new T.Vector3(0,0,1).transformDirection(sign.matrixWorld);

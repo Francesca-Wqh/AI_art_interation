@@ -1,75 +1,75 @@
-# v08｜把店内交互改成三个不同的游戏
+# v08 — Three Distinct Workshop Games
 
-日期：2026-09-28  
-范围：`cafe-terrace-studio` 的店内工作台、委托流程和最终明信片。
+Date: 2026-09-28
+Scope: the shop workstations, commission flow, and final postcard in `cafe-terrace-studio`.
 
-## 1. 为什么不再做七个工作台
+## 1. Why Reduce Seven Workstations to Three?
 
-v07 虽然已经从二选一升级为拖动、调色和画笔，但七个工作台仍然容易被玩家理解成“七个参数面板”：拖动一个东西、看右侧预览、保存。数量增加了，动作语法没有真正增加。
+Although v07 moved beyond binary choices to dragging, color mixing, and drawing, the seven workstations could still feel like seven parameter panels: move something, watch a preview, and save. More stations did not necessarily mean more kinds of interaction.
 
-v08 因此只保留三间有完整玩法的店：
+Version 08 therefore retains three shops with full activities:
 
-- 书店：空间拼接游戏
-- 布料铺：颜色分布游戏
-- 陶器工坊：追光描线游戏
+- Bookshop: a spatial assembly game.
+- Fabric shop: a color-distribution game.
+- Pottery studio: a light-following drawing game.
 
-街道中的其他店铺仍可以作为环境与建筑存在，但不再要求玩家逐店完成，也不再把可选店铺伪装成必须的小游戏。
+The other shops remain part of the street and its architecture. Players no longer need to complete them all, and optional shops are not presented as mandatory minigames.
 
-## 2. 参考的设计模式
+## 2. Design Patterns
 
-本轮参考了三种不同的互动结构，而不是照搬某个游戏的美术或剧情：
+This iteration draws on three interaction structures, rather than copying another game's art or story:
 
-1. **空间重排 / 视觉连接**：来自图像拼板、地图重组类游戏的启发。玩家通过移动、旋转、连接视觉线索来组织观看路径，而不是从四个答案中选一个。
-2. **并置而非滑杆**：颜色游戏不再是“暖色滑杆 / 冷色滑杆”。玩家把色点放进不同的空间带，让颜色因邻接关系产生差异；这更接近同时代绘画中“颜色如何相遇”的观察问题。
-3. **身体化描线**：画笔游戏不要求画得像，也不设唯一正确答案。玩家沿着短暂出现的灯点描出一条连续路径；追上的灯成为作品的一部分，偏离也会留下个人笔迹。
+1. **Spatial rearrangement and visual connections:** Inspired by picture-tile and map-reassembly games. Players move, rotate, and connect visual clues to organize a viewing path instead of choosing one of four answers.
+2. **Juxtaposition rather than sliders:** The color activity is not a pair of warm/cool sliders. Players place dots in spatial bands, changing colors through their relationships with neighbors. This is closer to observing how colors meet in painting of the period.
+3. **Embodied tracing:** Drawing does not require likeness or a single correct answer. Players trace a continuous path through briefly appearing lights. Caught lights become part of the artwork, while deviations leave personal marks.
 
-艺术方向上，v08 只借用“夜间观察、互补色关系、可见笔触、平面形色”等创作问题，不复原某幅名画，也不声称店铺和玩法是 1888 年街道的史实。
+Artistically, v08 draws on nighttime observation, complementary color relationships, visible brushwork, and flat shapes and colors. It neither reconstructs a particular painting nor claims its shops and activities are historical facts about the street in 1888.
 
-## 3. 三个游戏的具体规则
+## 3. Rules for the Three Games
 
-### 01 书店｜拼一条街
+### 01 Bookshop — Piece Together a Street
 
-- 画面有四块街景片段。
-- 玩家拖动片段，靠近目标位置时会吸附；空格旋转当前片段。
-- 片段包含道路、窗框、灯光和天空，它们的相对位置直接改变最终构图。
-- 没有“正确拼图”提示；不同排列都可以收进手记。
+- The canvas contains four street fragments.
+- Drag a fragment toward a target position to snap it into place; press Space to rotate the selected piece.
+- Roads, window frames, lights, and sky appear in the fragments. Their relative positions directly influence the final composition.
+- There is no “correct puzzle” prompt. Different arrangements can all be saved to the journal.
 
-### 02 布料铺｜编织一束光
+### 02 Fabric Shop — Weave a Beam of Light
 
-- 画面有九枚颜色不同的色点和三条布带：天空、灯下、湿路。
-- 玩家把色点拖到不同布带，空格切换晴朗、薄雾、雨后三种天气。
-- 颜色分布生成冷暖比例、对比度、发光程度和雨后反光，而不是由单个滑杆决定。
-- 玩家可以故意做出不符合委托提示的颜色关系，作品仍然有效。
+- The canvas contains nine colored dots and three bands: sky, lamplight, and wet pavement.
+- Drag dots into different bands. Press Space to cycle through clear, misty, and after-rain weather.
+- The color distribution determines warm/cool balance, contrast, glow, and rain reflections, rather than a single slider.
+- Players may deliberately depart from a commission's color suggestions; the work remains valid.
 
-### 03 陶器工坊｜追着灯光写一笔
+### 03 Pottery Studio — Follow the Light
 
-- 画面中有五盏可追的短暂灯点。
-- 玩家按住鼠标写线，经过下一盏灯时记录一次追光；空格可用键盘起笔 / 收笔。
-- 追光数量会改变最终夜景中的亮点和回声线；原始笔迹也会保留。
-- 目标是观察和动作节奏，不是速度排行榜，也没有失败惩罚。
+- Five fleeting points of light can be followed.
+- Hold the mouse to draw. Passing through the next light records a capture. Space starts or ends a keyboard-controlled stroke.
+- Captured lights influence highlights and echoing lines in the final nightscape; original strokes are also retained.
+- The focus is observation and rhythm, not a speed leaderboard. There is no failure penalty.
 
-## 4. 为什么这三种不容易同质化
+## 4. Keeping the Interactions Distinct
 
-| 工作台 | 主要动词 | 反馈类型 | 最终影响 |
+| Workstation | Main actions | Feedback | Final effect |
 |---|---|---|---|
-| 书店 | 移动 / 旋转 / 对齐 | 线条是否接上、空间是否打开 | 构图骨架、消失点、主体密度 |
-| 布料铺 | 分配 / 并置 / 交换 | 三条色带的关系改变 | 天空、灯光、阴影、天气 |
-| 陶器工坊 | 跟随 / 描线 / 偏离 | 灯点被追上，路径留下 | 星光、风、倒影、笔触 |
+| Bookshop | Move / rotate / align | Lines connect; space opens | Composition, vanishing point, subject density |
+| Fabric shop | Distribute / juxtapose / swap | Relationships between three color bands change | Sky, lights, shadows, weather |
+| Pottery studio | Follow / trace / deviate | Lights are caught; paths remain | Starlight, wind, reflections, brushwork |
 
-三个游戏分别对应空间、颜色、动作，不共享同一个“选项卡 + 参数滑杆”模板。
+The games address space, color, and gesture rather than sharing one “tabs plus sliders” template.
 
-## 5. 实现与边界
+## 5. Implementation and Boundaries
 
-- 存档版本升级到 v08；继续读取 v05 / v06 / v07 的核心进度，旧的可选店铺不会强迫玩家重新完成。
-- `works.books` 保存四块片段的位置与旋转；`works.cloth` 保存九枚色点的位置；`works.atelier` 保存笔迹、追上的灯点、颜色和笔宽。
-- 最终明信片继续由本地 Canvas 确定性绘制，玩家数据会影响画面；不新增网络依赖、AI API、摄像头或麦克风。
-- 不用“分数”判断艺术好坏。委托反馈仍然是描述性回应，玩家可以重复修改同一份委托。
+- Save format advances to v08 while continuing to read v05, v06, and v07 core progress. Old optional shops do not force players to repeat activities.
+- `works.books` stores four fragments' positions and rotations; `works.cloth` stores nine color-dot positions; `works.atelier` stores strokes, captured lights, ink colors, and stroke width.
+- The final postcard is still drawn deterministically with local Canvas rendering, using the player's data. No new network dependencies, AI APIs, camera access, or microphone access are introduced.
+- Art is not judged by a score. Commission feedback remains descriptive, and players can repeatedly revise the same commission.
 
-## 6. 调研对象（作为机制参考，不是素材来源）
+## 6. Reference Works: Mechanics, Not Asset Sources
 
-- **Gorogoa**：观察“把画面重新排列后，关系本身成为谜题”的可能性。
-- **Carto**：观察“移动地图片段会改变空间连接”的可能性。
-- **Florence**：观察如何用短小、单一动作表达情绪变化，而不是依赖长文本问答。
-- **Pentiment**：观察历史艺术语境如何成为界面语言与观看方式，而不必把玩家变成答题者。
+- **Gorogoa:** How rearranging images can make relationships themselves the puzzle.
+- **Carto:** How moving map fragments can change spatial connections.
+- **Florence:** How short, single gestures can express emotional change without lengthy text questionnaires.
+- **Pentiment:** How historical art can shape an interface and a way of looking without turning the player into a quiz-taker.
 
-这些作品只提供机制层面的启发；本项目的场景、委托、色点、街景片段和笔迹均为本项目原创程序内容。
+These works provide inspiration at the level of mechanics. The scene, commissions, color dots, street fragments, and strokes are original procedural content created for this project.

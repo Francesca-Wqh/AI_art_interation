@@ -1,4 +1,4 @@
-import {doorLayout,localRect,worldToLocal} from './layout.js?v=08';
+import {doorLayout,localRect,worldToLocal} from './layout.js?v=08-en';
 // The portal stays blocked until the leaf is completely open. No teleporting.
 export function createDoorState(shop){
   const layout=doorLayout(shop);
